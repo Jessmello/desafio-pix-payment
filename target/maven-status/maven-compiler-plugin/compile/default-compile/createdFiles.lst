@@ -1,0 +1,11 @@
+com\desafio\api\impl\PaymentsController.class
+com\desafio\config\SwaggerConfig.class
+com\desafio\config\SwaggerConfig$1.class
+com\desafio\model\DestinationDTO$KeyTypeEnum.class
+com\desafio\api\PaymentsApi.class
+com\desafio\model\RecurrenceDTO.class
+com\desafio\model\DestinationDTO.class
+com\desafio\model\PaymentDTO.class
+com\desafio\model\PaymentDTO$StatusEnum.class
+com\desafio\Application.class
+com\desafio\model\RecurrenceDTO$FrequencyEnum.class
