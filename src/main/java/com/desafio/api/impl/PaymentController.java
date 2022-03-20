@@ -2,12 +2,9 @@ package com.desafio.api.impl;
 
 import com.desafio.model.PaymentDTO;
 import com.desafio.services.PaymentService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,50 +25,50 @@ public class PaymentController {
     private PaymentService paymentService;
 
 
-    @Operation(summary = "Add a new payment", description = "")
+    @ApiOperation(value  = "Add a new payment")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "405", description = "Invalid input") })
+            @ApiResponse(code = 405, message = "Invalid input") })
     @RequestMapping(value = "/payments",
             consumes = { "application/json" },
             method = RequestMethod.POST)
-    public ResponseEntity<Void> addPayment(@Parameter(in = ParameterIn.DEFAULT, description = "Payment object that needs to be added", required=true, schema=@Schema()) @Valid @RequestBody PaymentDTO body) {
+    public ResponseEntity<Void> addPayment( @Valid @RequestBody PaymentDTO body) {
         log.info("Entrou addPayment {}", body);
         paymentService.insertPayment(body);
         log.info("saindo addPayment");
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Operation(summary = "Delete payment", description = "")
+    @ApiOperation(value = "Delete payment")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "405", description = "Invalid input") })
+            @ApiResponse(code = 405, message = "Invalid input") })
     @RequestMapping(value = "/payments",
             consumes = { "application/json" },
             method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@Parameter(in = ParameterIn.DEFAULT, description = "Payment object that needs to be added", required=true, schema=@Schema()) @Valid @RequestBody PaymentDTO body) {
+    public ResponseEntity<Void> delete( @Valid @RequestBody PaymentDTO body) {
         log.info("entrou deletePayment {}", body);
         paymentService.deletePayment(body);
         log.info("saindo deletePayment");
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @Operation(summary = "Consult payment", description = "")
+    @ApiOperation(value = "Consult payment")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "405", description = "Invalid input") })
+            @ApiResponse(code = 405, message = "Invalid input") })
     @RequestMapping(value = "/payments",
             consumes = { "application/json" },
             method = RequestMethod.GET)
-    public ResponseEntity<List<PaymentDTO>> payment(@Parameter(in = ParameterIn.DEFAULT, description = "Payment object that needs to be added", required=true, schema=@Schema()) @Valid @RequestBody PaymentDTO body) {
+    public ResponseEntity<List<PaymentDTO>> payment( @Valid @RequestBody PaymentDTO body) {
         log.info("entrou payment {}", body);
         return ResponseEntity.ok(paymentService.getPayment(body));
     }
 
-    @Operation(summary = "update payment", description = "")
+    @ApiOperation(value = "update payment")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "405", description = "Invalid input") })
+            @ApiResponse(code = 405, message  = "Invalid input") })
     @RequestMapping(value = "/payments",
             consumes = { "application/json" },
             method = RequestMethod.PUT)
-    public ResponseEntity<Void> updatePayment(@Parameter(in = ParameterIn.DEFAULT, description = "Payment object that needs to be added", required=true, schema=@Schema()) @Valid @RequestBody PaymentDTO body) {
+    public ResponseEntity<Void> updatePayment( @Valid @RequestBody PaymentDTO body) {
         log.info("entrou updatePayment {}", body);
         paymentService.updatePayment(body);
         log.info("saindo updatePayment");
