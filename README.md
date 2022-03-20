@@ -1,5 +1,4 @@
-# desafio-pix-payment.app
-Desafio Pagamento Pix
+# Desafio Pagamento Pix
 
 Para rodar esse projeto é necessario possuir o docker instalado na maquina, caso não possua efetuar o download em https://www.docker.com/products/docker-desktop/ 
 
@@ -7,7 +6,7 @@ Para rodar esse projeto é necessario possuir o docker instalado na maquina, cas
 Para executar o kafka é necessario entrar na pasta kafka e executar o seguinte comando: docker-compose up -d
 
 #Subindo Mysql
-Para executar o Mysql é necessario entrar na pasta mysql e seguir o seguintes comandos separadamente:
+Para executar o Mysql é necessario entrar na pasta mysql e executar os seguintes comandos separadamente:
 
 docker build -t desafio-db .
 
