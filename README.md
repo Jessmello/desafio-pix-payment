@@ -11,3 +11,7 @@ Para executar o Mysql é necessario entrar na pasta mysql e executar os seguinte
 docker build -t desafio-db .
 
 docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=T1Way2Slstwof3Wcbbtts3 -e MYSQL_DATABASE=Desafio -e MYSQL_USER=desafioUser -e MYSQL_PASSWORD=desafioPix2022 desafio-db
+
+
+#Executar projeto
+Abra o projeto em qualquer ide e execute o Application, após subir o projeto é possivel executar as chamadas e verificar a documentação pelo link http://localhost:8080/swagger-ui.htm

@@ -1,7 +1,6 @@
-package com.desafio.model.enums;
+package com.desafio.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * payment status
@@ -15,7 +14,7 @@ public enum StatusEnum {
 
     CANCELADO("CANCELADO");
 
-    private String value;
+    private final String value;
 
     StatusEnum(String value) {
         this.value = value;

@@ -1,4 +1,4 @@
-package com.desafio.model.enums;
+package com.desafio.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

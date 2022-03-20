@@ -1,6 +1,6 @@
 package com.desafio.util;
 
-import com.desafio.model.enums.FrequencyEnum;
+import com.desafio.enums.FrequencyEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,13 +14,18 @@ import java.util.regex.Pattern;
  */
 public class ValidateUtil {
 
-    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+    private ValidateUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    //RFC REGULAR EXPRESSION FOR EMAILS - UPDATED IN RFC 822
+    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
 
     /**
      * Valida se o valor da recorrencia é maior que o minimo permitido
-     * @param frequencyEnum
-     * @param value
-     * @return
+     * @param frequencyEnum Frequencia
+     * @param value Valor
+     * @return Valor da recorrencia é valido
      */
     public static boolean isValidRecurrenceValue(FrequencyEnum frequencyEnum, BigDecimal value){
         return value.compareTo(frequencyEnum.getMinimumValue()) > 0;
@@ -64,8 +69,12 @@ public class ValidateUtil {
                 (string.length() != 11))
             return(false);
 
-        char penultimoDigito, ultimoDigito;
-        int soma, resto, numero, peso;
+        char penultimoDigito;
+        char ultimoDigito;
+        int soma;
+        int resto;
+        int numero;
+        int peso;
 
         try {
             // Calculo do 1o. Digito Verificador
@@ -98,9 +107,7 @@ public class ValidateUtil {
             else ultimoDigito = (char)(resto + 48);
 
             // Verifica se os digitos calculados conferem com os digitos informados.
-            if ((penultimoDigito == string.charAt(9)) && (ultimoDigito == string.charAt(10)))
-                return(true);
-            else return(false);
+            return (penultimoDigito == string.charAt(9)) && (ultimoDigito == string.charAt(10));
         } catch (InputMismatchException erro) {
             return(false);
         }

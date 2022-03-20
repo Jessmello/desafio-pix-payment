@@ -1,6 +1,6 @@
 package com.desafio.util;
 
-import com.desafio.model.enums.FrequencyEnum;
+import com.desafio.enums.FrequencyEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,60 +11,60 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class ValidateUtilTests {
+class ValidateUtilTests {
 
-    public static final String D_MM_YYYY = "d/MM/yyyy";
+    static final String D_MM_YYYY = "d/MM/yyyy";
 
     @Test
-    public void validRecurrenceValue_happyPath_weeksWithValidValue() {
+    void validRecurrenceValue_happyPath_weeksWithValidValue() {
         assertTrue(ValidateUtil.isValidRecurrenceValue(FrequencyEnum.SEMANAL, BigDecimal.valueOf(50.01)));
     }
 
     @Test
-    public void validRecurrenceValue_happyPath_monthsWithValidValue() {
+    void validRecurrenceValue_happyPath_monthsWithValidValue() {
         assertTrue(ValidateUtil.isValidRecurrenceValue(FrequencyEnum.MENSAL, BigDecimal.valueOf(100.01)));
     }
 
     @Test
-    public void validRecurrenceValue_happyPath_quarterlyWithValidValue() {
+    void validRecurrenceValue_happyPath_quarterlyWithValidValue() {
 
         assertTrue(ValidateUtil.isValidRecurrenceValue(FrequencyEnum.TRIMESTRAL, BigDecimal.valueOf(130.01)));
 
     }
 
     @Test
-    public void validRecurrenceValue_happyPath_semiannualWithValidValue() {
+    void validRecurrenceValue_happyPath_semiannualWithValidValue() {
 
         assertTrue(ValidateUtil.isValidRecurrenceValue(FrequencyEnum.SEMESTRAL, BigDecimal.valueOf(150.01)));
 
     }
 
     @Test
-    public void validRecurrenceValue_badPath_weeksWithNoValidValue() {
+    void validRecurrenceValue_badPath_weeksWithNoValidValue() {
         assertFalse(ValidateUtil.isValidRecurrenceValue(FrequencyEnum.SEMANAL, BigDecimal.valueOf(50.00)));
     }
 
     @Test
-    public void validRecurrenceValue_badPath_monthsWithNoValidValue() {
+    void validRecurrenceValue_badPath_monthsWithNoValidValue() {
         assertFalse(ValidateUtil.isValidRecurrenceValue(FrequencyEnum.MENSAL, BigDecimal.valueOf(100.00)));
     }
 
     @Test
-    public void validRecurrenceValue_badPath_quarterlyWithNoValidValue() {
+    void validRecurrenceValue_badPath_quarterlyWithNoValidValue() {
 
         assertFalse(ValidateUtil.isValidRecurrenceValue(FrequencyEnum.TRIMESTRAL, BigDecimal.valueOf(130.00)));
 
     }
 
     @Test
-    public void validRecurrenceValue_badPath_semiannualWithNoValidValue() {
+    void validRecurrenceValue_badPath_semiannualWithNoValidValue() {
 
         assertFalse(ValidateUtil.isValidRecurrenceValue(FrequencyEnum.SEMESTRAL, BigDecimal.valueOf(150.00)));
 
     }
 
     @Test
-    public void validRecurrenceFrequency_happyPath_weeksWithValidDate() {
+    void validRecurrenceFrequency_happyPath_weeksWithValidDate() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(D_MM_YYYY);
         String dateInit  = "20/03/2022";
@@ -77,7 +77,7 @@ public class ValidateUtilTests {
     }
 
     @Test
-    public void validRecurrenceFrequency_badPath_weeksWithNoValidDate() {
+    void validRecurrenceFrequency_badPath_weeksWithNoValidDate() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(D_MM_YYYY);
         String dateInit  = "20/03/2022";
@@ -90,7 +90,7 @@ public class ValidateUtilTests {
     }
 
     @Test
-    public void validRecurrenceFrequency_happyPath_monthsWithValidDate() {
+    void validRecurrenceFrequency_happyPath_monthsWithValidDate() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(D_MM_YYYY);
         String dateInit  = "20/03/2022";
@@ -103,7 +103,7 @@ public class ValidateUtilTests {
     }
 
     @Test
-    public void validRecurrenceFrequency_badPath_monthsWithNoValidDate() {
+    void validRecurrenceFrequency_badPath_monthsWithNoValidDate() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(D_MM_YYYY);
         String dateInit  = "20/03/2022";
@@ -116,7 +116,7 @@ public class ValidateUtilTests {
     }
 
     @Test
-    public void validRecurrenceFrequency_happyPath_quarterlyWithValidDate() {
+    void validRecurrenceFrequency_happyPath_quarterlyWithValidDate() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(D_MM_YYYY);
         String dateInit  = "20/03/2022";
@@ -129,7 +129,7 @@ public class ValidateUtilTests {
     }
 
     @Test
-    public void validRecurrenceFrequency_badPath_quarterlyWithNoValidDate() {
+    void validRecurrenceFrequency_badPath_quarterlyWithNoValidDate() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(D_MM_YYYY);
         String dateInit  = "20/03/2022";
@@ -142,7 +142,7 @@ public class ValidateUtilTests {
     }
 
     @Test
-    public void validRecurrenceFrequency_happyPath_semiannualWithValidDate() {
+    void validRecurrenceFrequency_happyPath_semiannualWithValidDate() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(D_MM_YYYY);
         String dateInit  = "20/03/2022";
@@ -155,7 +155,7 @@ public class ValidateUtilTests {
     }
 
     @Test
-    public void validRecurrenceFrequency_badPath_semiannualWithNoValidDate() {
+    void validRecurrenceFrequency_badPath_semiannualWithNoValidDate() {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(D_MM_YYYY);
         String dateInit  = "20/03/2022";
