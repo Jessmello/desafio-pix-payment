@@ -25,13 +25,13 @@ public class RecurrenceServiceImpl implements RecurrenceService {
         LocalDate date = LocalDate.now();
         while (!date.isAfter(recurrence.getFinalDate())){
             paymentList.add(mapper.copyDTOWithRecurrenceDate(paymentDTO, date));
-            date = getDate(recurrence.getFrequency(), date);
+            date = getNextDate(recurrence.getFrequency(), date);
         }
 
         return paymentList;
     }
 
-    private LocalDate getDate(FrequencyEnum frequency, LocalDate date) {
+    private LocalDate getNextDate(FrequencyEnum frequency, LocalDate date) {
         switch (frequency){
 
             case SEMANAL:

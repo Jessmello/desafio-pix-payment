@@ -167,4 +167,36 @@ class ValidateUtilTests {
 
     }
 
+    @Test
+    void validCpf_happyPath_validCpf() {
+        assertTrue(ValidateUtil.isCPF("75994750018"));
+    }
+
+    @Test
+    void validCpf_happyPath_validCpfWithLastDigit0() {
+        assertTrue(ValidateUtil.isCPF("78732968060"));
+    }
+
+    @Test
+    void validCpf_happyPath_validCpfWithDigit0() {
+        assertTrue(ValidateUtil.isCPF("60012263001"));
+    }
+
+    @Test
+    void validCpf_happyPath_notValidCpf() {
+        assertFalse(ValidateUtil.isCPF("00000000000"));
+    }
+
+    @Test
+    void validEmail_happyPath_validEmail() {
+        assertTrue(ValidateUtil.isValidEmailAddress("teste@teste.com.br"));
+    }
+
+    @Test
+    void validEmail_happyPath_notValidEmail() {
+        assertFalse(ValidateUtil.isValidEmailAddress("teste.@."));
+    }
+
+
+
 }

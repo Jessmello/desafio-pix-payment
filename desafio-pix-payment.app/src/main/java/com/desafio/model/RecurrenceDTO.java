@@ -4,6 +4,7 @@ import com.desafio.enums.FrequencyEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,8 +15,9 @@ import java.time.LocalDate;
  * RecurrenceDTO
  */
 @Getter
-@Setter
 @ToString
+@Setter
+@Builder
 public class RecurrenceDTO   {
 
   @JsonProperty("finalDate")

@@ -5,7 +5,6 @@ import com.desafio.enums.FrequencyEnum;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.InputMismatchException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,8 +17,7 @@ public class ValidateUtil {
         throw new IllegalStateException("Utility class");
     }
 
-    //RFC REGULAR EXPRESSION FOR EMAILS - UPDATED IN RFC 822
-    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+    public static final String EMAIL_PATTERN = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
 
     /**
      * Valida se o valor da recorrencia é maior que o minimo permitido
@@ -76,41 +74,37 @@ public class ValidateUtil {
         int numero;
         int peso;
 
-        try {
-            // Calculo do 1o. Digito Verificador
-            soma = 0;
-            peso = 10;
-            for (int i=0; i<9; i++) {
-                // converte o i-esimo caractere do string em um numero:
-                numero = (string.charAt(i) - 48);
-                soma = soma + (numero * peso);
-                peso = peso - 1;
-            }
-
-            resto = 11 - (soma % 11);
-            if ((resto == 10) || (resto == 11))
-                penultimoDigito = '0';
-            else penultimoDigito = (char)(resto + 48); // converte no respectivo caractere numerico
-
-            // Calculo do 2o. Digito Verificador
-            soma = 0;
-            peso = 11;
-            for(int i=0; i<10; i++) {
-                numero = (string.charAt(i) - 48);
-                soma = soma + (numero * peso);
-                peso = peso - 1;
-            }
-
-            resto = 11 - (soma % 11);
-            if ((resto == 10) || (resto == 11))
-                ultimoDigito = '0';
-            else ultimoDigito = (char)(resto + 48);
-
-            // Verifica se os digitos calculados conferem com os digitos informados.
-            return (penultimoDigito == string.charAt(9)) && (ultimoDigito == string.charAt(10));
-        } catch (InputMismatchException erro) {
-            return(false);
+        // Calculo do 1o. Digito Verificador
+        soma = 0;
+        peso = 10;
+        for (int i=0; i<9; i++) {
+            // converte o i-esimo caractere do string em um numero:
+            numero = (string.charAt(i) - 48);
+            soma = soma + (numero * peso);
+            peso = peso - 1;
         }
+
+        resto = 11 - (soma % 11);
+        if ((resto == 10) || (resto == 11))
+            penultimoDigito = '0';
+        else penultimoDigito = (char)(resto + 48); // converte no respectivo caractere numerico
+
+        // Calculo do 2o. Digito Verificador
+        soma = 0;
+        peso = 11;
+        for(int i=0; i<10; i++) {
+            numero = (string.charAt(i) - 48);
+            soma = soma + (numero * peso);
+            peso = peso - 1;
+        }
+
+        resto = 11 - (soma % 11);
+        if ((resto == 10) || (resto == 11))
+            ultimoDigito = '0';
+        else ultimoDigito = (char)(resto + 48);
+
+        // Verifica se os digitos calculados conferem com os digitos informados.
+        return (penultimoDigito == string.charAt(9)) && (ultimoDigito == string.charAt(10));
     }
 
 }

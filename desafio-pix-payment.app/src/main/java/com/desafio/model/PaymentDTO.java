@@ -3,9 +3,7 @@ package com.desafio.model;
 import com.desafio.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -17,6 +15,8 @@ import java.time.LocalDate;
 @Getter
 @ToString
 @Setter
+@Builder
+@EqualsAndHashCode
 public class PaymentDTO   {
 
   @JsonProperty("id")
