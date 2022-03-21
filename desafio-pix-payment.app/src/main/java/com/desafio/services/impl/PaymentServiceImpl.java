@@ -4,6 +4,7 @@ import com.desafio.model.entity.PaymentEntity;
 import com.desafio.model.PaymentDTO;
 import com.desafio.enums.StatusEnum;
 import com.desafio.model.mapper.PaymentMapper;
+import com.desafio.kafka.producer.PaymentProducer;
 import com.desafio.repository.PaymentRepository;
 import com.desafio.services.PaymentService;
 import com.desafio.services.RecurrenceService;
@@ -25,6 +26,7 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentRepository paymentRepository;
     private PaymentMapper mapper;
     private RecurrenceService recurrenceService;
+    private PaymentProducer kafkaProducer;
 
     /**
      * Método responsavel por validar as regras de inserção de pagamento
@@ -44,6 +46,8 @@ public class PaymentServiceImpl implements PaymentService {
         }
 
         savePayment(payment);
+
+
         return message;
     }
 
@@ -63,7 +67,9 @@ public class PaymentServiceImpl implements PaymentService {
      * @param payment Body recebido na entrada
      */
     private void savePayment(PaymentDTO payment) {
-        this.paymentRepository.save(mapper.toEntity(payment));
+        PaymentEntity entity = mapper.toEntity(payment);
+        this.paymentRepository.save(entity);
+        kafkaProducer.send(entity);
     }
 
     /**
@@ -93,7 +99,8 @@ public class PaymentServiceImpl implements PaymentService {
      */
     @Override
     public void updatePayment(PaymentDTO payment) {
-        this.paymentRepository.save(mapper.toEntity(payment));
+        PaymentEntity byId = paymentRepository.getById(payment.getId().intValue());
+        this.paymentRepository.save(mapper.updatePayment(byId, mapper.toEntity(payment)));
     }
 
     /**

@@ -8,13 +8,14 @@ import com.desafio.util.ValidateUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
 import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Classe mapper, mapeia os campos entre Entity e DTO
+ * Mapeia os campos entre Entity e DTO
  */
 @Mapper(componentModel="spring")
 public interface PaymentMapper {
@@ -39,6 +40,9 @@ public interface PaymentMapper {
     @Mapping(target="recurrence.finalDate", source="finalDate")
     @Mapping(target="recurrence.frequency", source="frequency")
     List<PaymentDTO> listToDtoList(List<PaymentEntity> entity);
+
+    @Mapping(ignore = true, target = "id")
+    PaymentEntity updatePayment(@MappingTarget PaymentEntity paymentSave, PaymentEntity updatedPayment);
 
     /**
      * Regra para definição do tipo da chave pix

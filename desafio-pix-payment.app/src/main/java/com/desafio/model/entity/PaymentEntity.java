@@ -1,5 +1,6 @@
 package com.desafio.model.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonSerialize
 @Table(name = "payment")
 public class PaymentEntity {
 
