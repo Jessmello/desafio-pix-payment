@@ -33,7 +33,7 @@ class PaymentServiceTests {
     public PaymentRepository paymentRepository;
 
     @Mock
-    public PaymentMapper paymentMapper;
+    public PaymentMapper mapper;
 
     @Mock
     public RecurrenceService recurrenceService;
@@ -50,7 +50,7 @@ class PaymentServiceTests {
 
     @Test
     void insertPayment_happyPath_insertNewPayment() {
-
+        Mockito.when(paymentRepository.save(ArgumentMatchers.any())).thenReturn(new PaymentEntity());
         Mockito.when(paymentRepository.getByDateAndValueAndPixKey(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(new ArrayList<>());
         PaymentDTO paymentDTO = TestsBuilder.buildPaymentDTO(LocalDate.now(), 50.00);
         String s = paymentService.insertPayment(paymentDTO);
@@ -61,6 +61,7 @@ class PaymentServiceTests {
 
     @Test
     void insertPayment_badPath_warn() {
+        Mockito.when(paymentRepository.save(ArgumentMatchers.any())).thenReturn(new PaymentEntity());
         PaymentDTO paymentDTO = TestsBuilder.buildPaymentDTO(LocalDate.now(), 50.00);
         List<PaymentEntity> payments = Collections.singletonList(new PaymentEntity());
         Mockito.when(paymentRepository.getByDateAndValueAndPixKey(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(payments);

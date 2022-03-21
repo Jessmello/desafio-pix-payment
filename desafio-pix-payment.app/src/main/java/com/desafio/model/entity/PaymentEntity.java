@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonSerialize
+@ToString
 @Table(name = "payment")
 public class PaymentEntity {
 

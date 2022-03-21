@@ -18,6 +18,7 @@ public class PaymentProducer {
     private final KafkaTemplate<String, PaymentEntity> kafkaTemplate;
 
     public void send(PaymentEntity payment){
+
         log.info("Payload enviado: {}", payment);
         kafkaTemplate.send(topicName, payment);
     }

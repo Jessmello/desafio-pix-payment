@@ -40,6 +40,9 @@ public class PaymentServiceImpl implements PaymentService {
         if(isValidRecurrence(payment)){
             return this.saveRecurrence(payment);
         }
+        if(payment.getRecurrence() != null){
+            return "Recorrencia invalida! Verifique os prazos maximos e valores minimos para inclusão de recorrencia!";
+        }
 
         if(isExistingPayment(payment)){
             message = "Pagamento incluido com sucesso, porém existe um pagamento com os mesmos dados cadastrados!";
@@ -67,9 +70,10 @@ public class PaymentServiceImpl implements PaymentService {
      * @param payment Body recebido na entrada
      */
     private void savePayment(PaymentDTO payment) {
-        PaymentEntity entity = mapper.toEntity(payment);
-        this.paymentRepository.save(entity);
-        kafkaProducer.send(entity);
+        PaymentEntity entity = this.paymentRepository.save(mapper.toEntity(payment));
+        if(StatusEnum.EFETUADO.name().equals(entity.getStatus())){
+            kafkaProducer.send(entity);
+        }
     }
 
     /**
