@@ -1,5 +1,6 @@
 package com.desafio.services.impl;
 
+import com.desafio.exceptions.NotFoundException;
 import com.desafio.model.entity.PaymentEntity;
 import com.desafio.model.PaymentDTO;
 import com.desafio.enums.StatusEnum;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * PaymentService
@@ -102,20 +104,29 @@ public class PaymentServiceImpl implements PaymentService {
      * @param payment Pagamento a ser realizado o update
      */
     @Override
-    public void updatePayment(PaymentDTO payment) {
-        PaymentEntity byId = paymentRepository.getById(payment.getId().intValue());
-        this.paymentRepository.save(mapper.updatePayment(byId, mapper.toEntity(payment)));
+    public void updatePayment(PaymentDTO payment) throws NotFoundException {
+        Optional<PaymentEntity> byId = paymentRepository.findById(payment.getId());
+        if(!byId.isPresent()){
+            throw new NotFoundException("Payment not found");
+        }
+        PaymentEntity paymentEntity = byId.get();
+        this.paymentRepository.save(mapper.updatePayment(paymentEntity, mapper.toEntity(payment)));
     }
 
     /**
      * Realiza o delete negocial do pagamento, o pagamento não é apagado
      * da base para fins de histórico, porem seu status é alterado para cancelado.
-     * @param payment Pagamento a ser deletado da base
+     * @param paymentId Id do Pagamento a ser deletado da base
      */
     @Override
-    public void deletePayment(PaymentDTO payment) {
-        payment.setStatus(StatusEnum.CANCELADO);
-        this.updatePayment(payment);
+    public void deletePayment(Long paymentId) throws NotFoundException {
+        Optional<PaymentEntity> paymentEntity = paymentRepository.findById(paymentId);
+        if(!paymentEntity.isPresent()){
+            throw new NotFoundException("Payment not found");
+        }
+        PaymentEntity payment = paymentEntity.get();
+        payment.setStatus(StatusEnum.CANCELADO.name());
+        this.paymentRepository.save(payment);
     }
 
     /**

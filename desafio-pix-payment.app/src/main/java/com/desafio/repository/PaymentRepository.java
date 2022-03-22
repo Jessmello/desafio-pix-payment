@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface PaymentRepository extends JpaRepository<PaymentEntity, Integer> {
+public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
     List<PaymentEntity> getByDateAndValueAndPixKey(LocalDate date, BigDecimal value, String pixKey);
 

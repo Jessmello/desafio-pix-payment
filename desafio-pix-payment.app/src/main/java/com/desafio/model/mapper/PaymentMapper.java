@@ -25,6 +25,7 @@ public interface PaymentMapper {
     @Mapping(target="finalDate", source="recurrence.finalDate")
     @Mapping(target="frequency", source="recurrence.frequency")
     @Mapping(target="status", source="date", qualifiedByName = "status")
+    @Mapping(ignore = true, target = "id")
     PaymentEntity toEntity(PaymentDTO dto);
 
     @Mapping(target="destination.pixKey", source="dto.destination.pixKey")
@@ -33,6 +34,7 @@ public interface PaymentMapper {
     @Mapping(target="recurrence.frequency", source="dto.recurrence.frequency")
     @Mapping(target="status", source="recurrenceDate", qualifiedByName = "status")
     @Mapping(target="date", source="recurrenceDate")
+    @Mapping(ignore = true, target = "id")
     PaymentDTO copyDTOWithRecurrenceDate(PaymentDTO dto, LocalDate recurrenceDate);
 
     @Mapping(target="destination.pixKey", source="pixKey")
@@ -40,6 +42,12 @@ public interface PaymentMapper {
     @Mapping(target="recurrence.finalDate", source="finalDate")
     @Mapping(target="recurrence.frequency", source="frequency")
     List<PaymentDTO> listToDtoList(List<PaymentEntity> entity);
+
+    @Mapping(target="destination.pixKey", source="pixKey")
+    @Mapping(target="destination.keyType", source="keyType")
+    @Mapping(target="recurrence.finalDate", source="finalDate")
+    @Mapping(target="recurrence.frequency", source="frequency")
+    PaymentDTO entityToDto(PaymentEntity entity);
 
     @Mapping(ignore = true, target = "id")
     PaymentEntity updatePayment(@MappingTarget PaymentEntity paymentSave, PaymentEntity updatedPayment);

@@ -4,6 +4,7 @@ import com.desafio.enums.StatusEnum;
 import com.desafio.model.PaymentDTO;
 import com.desafio.services.PaymentService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
@@ -38,10 +39,9 @@ public class PaymentController {
             @ApiResponse(code = 405, message = "Entrada invalida"),
             @ApiResponse(code = 500, message = "Erro interno")
     })
-    @DeleteMapping(value = "/payments",
-            consumes = { "application/json" })
-    public ResponseEntity<Void> delete( @Valid @RequestBody PaymentDTO body) {
-        paymentService.deletePayment(body);
+    @DeleteMapping(value = "/payments/{paymentId}")
+    public ResponseEntity<Void> delete( @Valid @ApiParam(value = "Payment Id", required = true) @PathVariable("paymentId") Long paymentId) {
+        paymentService.deletePayment(paymentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

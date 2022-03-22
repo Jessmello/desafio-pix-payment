@@ -10,8 +10,6 @@ public enum StatusEnum {
 
     EFETUADO("EFETUADO"),
 
-    PENDENTE("PENDENTE"),
-
     CANCELADO("CANCELADO");
 
     private final String value;
