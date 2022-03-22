@@ -2,6 +2,8 @@ package com.desafio.util;
 
 import com.desafio.enums.FrequencyEnum;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
@@ -10,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class ValidateUtilTests {
 
     static final String D_MM_YYYY = "d/MM/yyyy";

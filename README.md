@@ -14,4 +14,4 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=T1Way2Slstwof3Wcbbtts3 -e MYSQ
 
 
 #Executar projeto
-Abra o projeto em qualquer ide e execute o Application, após subir o projeto é possivel executar as chamadas e verificar a documentação pelo link http://localhost:8080/swagger-ui.htm
+Abra o projeto em qualquer ide e execute o Application, após subir o projeto é possivel executar as chamadas aos endpoints e verificar a documentação pelo link http://localhost:8080/swagger-ui.htm

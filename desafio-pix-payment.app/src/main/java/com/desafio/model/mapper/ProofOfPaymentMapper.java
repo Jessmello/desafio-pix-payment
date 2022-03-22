@@ -1,6 +1,7 @@
 package com.desafio.model.mapper;
 
-import com.desafio.model.PaymentKafkaDTO;
+import com.desafio.model.ProofOfPaymentDTO;
+import com.desafio.model.entity.PaymentEntity;
 import com.desafio.model.entity.ProofOfPaymentEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,9 +14,11 @@ import java.util.List;
 @Mapper(componentModel="spring")
 public interface ProofOfPaymentMapper {
 
-    PaymentKafkaDTO toEntity(ProofOfPaymentEntity dto);
+    @Mapping(ignore = true, target = "id")
+    @Mapping(target="paymentId", source="id")
+    ProofOfPaymentEntity toEntity(PaymentEntity dto);
 
-    List<ProofOfPaymentEntity> listToDtoList(List<PaymentKafkaDTO> entity);
+    List<ProofOfPaymentDTO> listToDtoList(List<ProofOfPaymentEntity> entity);
 
 
 }

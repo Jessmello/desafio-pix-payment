@@ -20,7 +20,7 @@ public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name="id_payment")
+    @Column(name="id_payment", insertable = false, updatable = false)
     private Long id;
 
     @Column(name = "ds_status")

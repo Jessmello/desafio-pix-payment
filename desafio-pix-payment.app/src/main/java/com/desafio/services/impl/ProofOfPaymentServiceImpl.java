@@ -1,13 +1,13 @@
 package com.desafio.services.impl;
 
-import com.desafio.model.PaymentDTO;
+import com.desafio.model.ProofOfPaymentDTO;
+import com.desafio.model.entity.PaymentEntity;
 import com.desafio.model.mapper.ProofOfPaymentMapper;
 import com.desafio.repository.ProofOfPaymentRepository;
 import com.desafio.services.ProofOfPaymentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,14 +18,12 @@ public class ProofOfPaymentServiceImpl implements ProofOfPaymentService {
     private ProofOfPaymentMapper mapper;
 
     @Override
-    public void saveProofOfPayment(PaymentDTO payment) {
-
-        //TODO
+    public void saveProofOfPayment(PaymentEntity payment) {
+        paymentRepository.save(mapper.toEntity(payment));
     }
 
     @Override
-    public List<PaymentDTO> getProofOfPayment() {
-        //TODO
-        return new ArrayList<>();
+    public List<ProofOfPaymentDTO> getProofOfPayment() {
+        return mapper.listToDtoList(paymentRepository.findAll());
     }
 }

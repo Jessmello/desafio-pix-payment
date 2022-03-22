@@ -1,31 +1,28 @@
 package com.desafio.kafka.consumer;
 
-import com.desafio.model.PaymentKafkaDTO;
 import com.desafio.model.entity.PaymentEntity;
+import com.desafio.services.ProofOfPaymentService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PaymentConsumer {
 
-    @Value("${topic.name.consumer}")
-    private String topicName;
+    private ProofOfPaymentService proofOfPaymentService;
+
+    @Autowired
+    public PaymentConsumer(ProofOfPaymentService proofOfPaymentService) {
+        this.proofOfPaymentService = proofOfPaymentService;
+    }
 
     @KafkaListener(topics = "${topic.name.consumer}", groupId = "group_id")
     public void consume(ConsumerRecord<String, PaymentEntity> payload){
-        log.info("Tópico: {}", topicName);
-        log.info("key: {}", payload.key());
-        log.info("Headers: {}", payload.headers());
-        log.info("Partion: {}", payload.partition());
         PaymentEntity value = payload.value();
-        log.info("Order: {}", value);
-
+        proofOfPaymentService.saveProofOfPayment(value);
     }
 
 }

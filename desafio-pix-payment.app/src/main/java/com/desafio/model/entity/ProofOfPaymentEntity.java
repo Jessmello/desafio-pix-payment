@@ -1,26 +1,52 @@
 package com.desafio.model.entity;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonSerialize
-@Table(name = "proof_of_payment")
+@ToString
+@Table(name = "proof_payment")
 public class ProofOfPaymentEntity {
 
     @Id
-    Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name="id_proof_payment", insertable = false, updatable = false)
+    private Long id;
+
+    @Column(name = "id_payment")
+    private Long paymentId;
+
+    @Column(name = "dt_inclusion")
+    private LocalDate inclusionDate;
+
+    @Column(name = "dt_payment")
+    private LocalDate date;
+
+    @Column(name = "vl_payment")
+    private BigDecimal value;
+
+    @Column(name = "ds_payment")
+    private String description;
+
+    @Column(name = "dt_final")
+    private LocalDate finalDate;
+
+    @Column(name = "ds_frequecy")
+    private String frequency;
+
+    @Column(name = "ds_key")
+    private String pixKey;
+
+    @Column(name = "cd_key")
+    private String keyType;
 }
 

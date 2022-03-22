@@ -7,22 +7,30 @@ import com.desafio.enums.StatusEnum;
 import com.desafio.model.DestinationDTO;
 import com.desafio.model.PaymentDTO;
 import com.desafio.model.RecurrenceDTO;
+import com.desafio.model.mapper.PaymentMapperImpl;
+import com.desafio.services.impl.RecurrenceServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class RecurrenceServiceTests {
 
-    @Autowired
+
     public RecurrenceService recurrenceService;
+
+    @BeforeEach
+    void init(){
+        recurrenceService = new RecurrenceServiceImpl(new PaymentMapperImpl());
+    }
 
     @Test
     void recurrencePayments_happyPath_frequencyWeeks2Payments() {
@@ -33,9 +41,7 @@ class RecurrenceServiceTests {
 
         List<PaymentDTO> recurrencePayments = recurrenceService.getRecurrencePayments(paymentDTO);
 
-        assertEquals(recurrenceExpected.size(),recurrencePayments.size());
-        assertEquals(recurrencePayments.get(0).getDate(), recurrenceExpected.get(0).getDate());
-        assertEquals(recurrencePayments.get(1).getDate(), recurrenceExpected.get(1).getDate());
+        assertEquals(recurrenceExpected, recurrencePayments);
     }
 
     @Test
@@ -47,9 +53,7 @@ class RecurrenceServiceTests {
 
         List<PaymentDTO> recurrencePayments = recurrenceService.getRecurrencePayments(paymentDTO);
 
-        assertEquals(recurrenceExpected.size(),recurrencePayments.size());
-        assertEquals(recurrencePayments.get(0).getDate(), recurrenceExpected.get(0).getDate());
-        assertEquals(recurrencePayments.get(1).getDate(), recurrenceExpected.get(1).getDate());
+        assertEquals(recurrenceExpected, recurrencePayments);
     }
 
 
@@ -63,9 +67,7 @@ class RecurrenceServiceTests {
 
         List<PaymentDTO> recurrencePayments = recurrenceService.getRecurrencePayments(paymentDTO);
 
-        assertEquals(recurrenceExpected.size(),recurrencePayments.size());
-        assertEquals(recurrencePayments.get(0).getDate(), recurrenceExpected.get(0).getDate());
-        assertEquals(recurrencePayments.get(1).getDate(), recurrenceExpected.get(1).getDate());
+        assertEquals(recurrenceExpected, recurrencePayments);
     }
 
 
@@ -78,9 +80,7 @@ class RecurrenceServiceTests {
 
         List<PaymentDTO> recurrencePayments = recurrenceService.getRecurrencePayments(paymentDTO);
 
-        assertEquals(recurrenceExpected.size(),recurrencePayments.size());
-        assertEquals(recurrencePayments.get(0).getDate(), recurrenceExpected.get(0).getDate());
-        assertEquals(recurrencePayments.get(1).getDate(), recurrenceExpected.get(1).getDate());
+        assertEquals(recurrenceExpected, recurrencePayments);
     }
 
     private List<PaymentDTO> getExpectedListFrequencyWeeks(LocalDate date) {
@@ -121,7 +121,7 @@ class RecurrenceServiceTests {
         recurrenceExpected.add(PaymentDTO.builder()
                 .status(StatusEnum.EFETUADO)
                 .date(date)
-                .value(BigDecimal.valueOf(100.00))
+                .value(BigDecimal.valueOf(101.00))
                 .inclusionDate(date)
                 .destination(DestinationDTO.builder()
                         .pixKey("13996268214")
@@ -135,7 +135,7 @@ class RecurrenceServiceTests {
         recurrenceExpected.add(PaymentDTO.builder()
                 .status(StatusEnum.AGENDADO)
                 .date(date.plusMonths(1))
-                .value(BigDecimal.valueOf(100.00))
+                .value(BigDecimal.valueOf(101.00))
                 .inclusionDate(date)
                 .destination(DestinationDTO.builder()
                         .pixKey("13996268214")
@@ -154,21 +154,21 @@ class RecurrenceServiceTests {
         recurrenceExpected.add(PaymentDTO.builder()
                 .status(StatusEnum.EFETUADO)
                 .date(date)
-                .value(BigDecimal.valueOf(100.00))
+                .value(BigDecimal.valueOf(131.00))
                 .inclusionDate(date)
                 .destination(DestinationDTO.builder()
                         .pixKey("13996268214")
                         .keyType(KeyTypeEnum.TELEFONE)
                         .build())
                 .recurrence(RecurrenceDTO.builder()
-                        .finalDate(date.plusMonths(6))
+                        .finalDate(date.plusMonths(3))
                         .frequency(FrequencyEnum.TRIMESTRAL)
                         .build())
                 .build());
         recurrenceExpected.add(PaymentDTO.builder()
                 .status(StatusEnum.AGENDADO)
                 .date(date.plusMonths(3))
-                .value(BigDecimal.valueOf(100.00))
+                .value(BigDecimal.valueOf(131.00))
                 .inclusionDate(date)
                 .destination(DestinationDTO.builder()
                         .pixKey("13996268214")
@@ -187,7 +187,7 @@ class RecurrenceServiceTests {
         recurrenceExpected.add(PaymentDTO.builder()
                 .status(StatusEnum.EFETUADO)
                 .date(date)
-                .value(BigDecimal.valueOf(100.00))
+                .value(BigDecimal.valueOf(151.00))
                 .inclusionDate(date)
                 .destination(DestinationDTO.builder()
                         .pixKey("13996268214")
@@ -201,7 +201,7 @@ class RecurrenceServiceTests {
         recurrenceExpected.add(PaymentDTO.builder()
                 .status(StatusEnum.AGENDADO)
                 .date(date.plusMonths(6))
-                .value(BigDecimal.valueOf(100.00))
+                .value(BigDecimal.valueOf(151.00))
                 .inclusionDate(date)
                 .destination(DestinationDTO.builder()
                         .pixKey("13996268214")

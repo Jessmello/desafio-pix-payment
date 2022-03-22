@@ -1,13 +1,14 @@
 package com.desafio.services;
 
-import com.desafio.model.PaymentDTO;
+import com.desafio.model.ProofOfPaymentDTO;
+import com.desafio.model.entity.PaymentEntity;
 
 import java.util.List;
 
 public interface ProofOfPaymentService {
 
-    void saveProofOfPayment(PaymentDTO payment);
+    void saveProofOfPayment(PaymentEntity payment);
 
-    List<PaymentDTO> getProofOfPayment();
+    List<ProofOfPaymentDTO> getProofOfPayment();
 
 }
